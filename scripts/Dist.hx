@@ -6,5 +6,5 @@ function main() {
 	for (script in ["Clean", "Build", "Version"]) Sys.command('lix $script');
 	FileSystem.createDirectory("bin/META-INF");
 	File.copy("LICENSE.md", "bin/META-INF/LICENSE.md");
-	Sys.command("jar --create --file=bin/io.belin.which.jar -C bin .");
+	Sys.command("jar --create --file=bin/io.belin.which.jar --manifest=etc/manifest.properties -C bin .");
 }
