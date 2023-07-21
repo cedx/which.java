@@ -25,7 +25,7 @@ function main() {
 	]);
 
 	if (exitCode != 0) Sys.exit(exitCode);
-	//generateCoverageReport(jacocoExec, 'bin/$pkgPath');
+	generateCoverageReport(jacocoExec, 'bin/$pkgPath');
 }
 
 /** Extracts the JAR of the JaCoCo Agent into the specified output directory. **/
