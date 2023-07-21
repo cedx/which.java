@@ -20,7 +20,7 @@ final class Finder {
 	 * Value indicating whether the current platform is Windows.
 	 */
 	public static final boolean isWindows =
-		System.getProperty("os.name").startsWith("Windows") || List.of("cygwin", "msys").contains(System.getenv("OSTYPE"));
+		System.getProperty("os.name").startsWith("Windows") || List.of("cygwin", "msys").contains(Optional.ofNullable(System.getenv("OSTYPE")).orElse(""));
 
 	/**
 	 * The list of executable file extensions.
