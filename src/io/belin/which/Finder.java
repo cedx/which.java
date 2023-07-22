@@ -84,8 +84,7 @@ final class Finder {
 	 * @return The paths of the executables found.
 	 */
 	public Stream<Path> find(String command) {
-		var streams = (Stream<Path>[]) paths.stream().map(directory -> findExecutables(directory, command)).toArray(Stream<?>[]::new); // TODO unchecked cast
-		return Stream.of(streams).flatMap(Function.identity());
+		return paths.stream().map(directory -> findExecutables(directory, command)).flatMap(Function.identity());
 	}
 
 	/**
@@ -148,13 +147,7 @@ final class Finder {
 	 * @return The paths of the executables found.
 	 */
 	private Stream<Path> findExecutables(Path directory, String command) {
-
-		// TODO
-		var toto = new ArrayList<String>(extensions.size() + 1);
-		toto.add("");
-		if (isWindows) toto.addAll(extensions);
-
-		return toto.stream()
+		return Stream.concat(Stream.of(""), Stream.of(extensions.toArray(String[]::new)))
 			.map(extension -> directory.resolve(command + extension).toAbsolutePath())
 			.filter(this::isExecutable);
 	}
