@@ -22,42 +22,41 @@ final class FinderTest {
 		var pathEnv = System.getenv("PATH");
 		var paths = pathEnv == null || pathEnv.isEmpty()
 			? Collections.<Path>emptyList()
-			: Arrays.asList(pathEnv.split(File.pathSeparator)).stream().filter(item -> !item.isEmpty()).map(Path::of).toList();
+			: Arrays.stream(pathEnv.split(File.pathSeparator)).filter(item -> !item.isEmpty()).map(Path::of).toList();
 
-		assertEquals(new Finder().paths, paths);
+		assertEquals(paths, new Finder().paths);
 
 		// It should set the `extensions` property to the value of the `PATHEXT` environment variable by default.
 		var pathExt = System.getenv("PATHEXT");
 		var extensions = pathExt == null || pathExt.isEmpty()
 			? List.of(".exe", ".cmd", ".bat", ".com")
-			: Arrays.asList(pathExt.split(";")).stream().map(item -> item.toLowerCase()).toList();
+			: Arrays.stream(pathExt.split(";")).map(item -> item.toLowerCase()).toList();
 
-		assertEquals(new Finder().extensions, extensions);
+		assertEquals(extensions, new Finder().extensions);
 
 		// It should put in lower case the list of file extensions.
-		assertEquals(new Finder(null, List.of(".EXE", ".JS", ".PS1")).extensions, List.of(".exe", ".js", ".ps1"));
+		assertEquals(List.of(".exe", ".js", ".ps1"), new Finder(null, List.of(".EXE", ".JS", ".PS1")).extensions);
 	}
 
-	/*
 	@Test
 	@DisplayName("find()")
 	void find() {
-		var finder = new Finder(List.of("share"));
+		var finder = new Finder(List.of(Path.of("share")));
 
 		// It should return the path of the `executable.cmd` file on Windows.
-		$executables = [...finder.find("executable");
-		assertThat($executables, countOf(Finder.isWindows ? 1 : 0));
-		if (Finder.isWindows) assertThat($executables[0]->getPathname(), stringEndsWith("\\share\\executable.cmd"));
+		var executables = finder.find("executable").toList();
+		assertEquals(Finder.isWindows ? 1 : 0, executables.size());
+		if (Finder.isWindows) assertTrue(executables.get(0).endsWith("share\\executable.cmd"));
 
 		// It should return the path of the `executable.sh` file on POSIX.
-		$executables = [...finder.find("executable.sh");
-		assertThat($executables, countOf(Finder.isWindows ? 0 : 1));
-		if (!Finder.isWindows) assertThat($executables[0]->getPathname(), stringEndsWith("/share/executable.sh"));
+		executables = finder.find("executable.sh").toList();
+		assertEquals(Finder.isWindows ? 0 : 1, executables.size());
+		if (!Finder.isWindows) assertTrue(executables.get(0).endsWith("share/executable.sh"));
 
 		// It should return an empty array if the searched command is not executable or not found.
-		assertThat([...finder.find("not_executable.sh"), isEmpty());
-		assertThat([...finder.find("foo"), isEmpty());
-	}*/
+		assertEquals(0, finder.find("not_executable.sh").count());
+		assertEquals(0, finder.find("foo").count());
+	}
 
 	@Test
 	@DisplayName("isExecutable()")
@@ -69,9 +68,9 @@ final class FinderTest {
 		assertFalse(finder.isExecutable(Path.of("share/not_executable.sh")));
 
 		// It should return `false` for a POSIX executable, when test is run on Windows.
-		assertEquals(finder.isExecutable(Path.of("share/executable.sh")), !Finder.isWindows);
+		assertEquals(!Finder.isWindows, finder.isExecutable(Path.of("share/executable.sh")));
 
 		// It should return `false` for a Windows executable, when test is run on POSIX.
-		assertEquals(finder.isExecutable(Path.of("share/executable.cmd")), Finder.isWindows);
+		assertEquals(Finder.isWindows, finder.isExecutable(Path.of("share/executable.cmd")));
 	}
 }

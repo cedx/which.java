@@ -12,7 +12,7 @@ function main() {
 	final pkgPath = Tools.javaPackage.replace(".", "/");
 	Sys.command("lix Build --debug");
 	Tools.setClassPath();
-	Sys.command('javac -d bin -g -Xlint:all,-path,-processing test/$pkgPath/FinderTest.java');
+	Sys.command('javac -d bin -g -Xlint:all,-path,-processing test/$pkgPath/FinderTest.java'); // TODO *.java
 
 	final jacocoJar = "jacocoagent.jar";
 	extractJacocoJar(jacocoJar, "var");

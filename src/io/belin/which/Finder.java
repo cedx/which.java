@@ -4,12 +4,15 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Finds the instances of an executable in the system path.
@@ -78,12 +81,12 @@ final class Finder {
 	/**
 	 * Finds the instances of an executable in the system path.
 	 * @param command The command to be resolved.
-	 * @return iterable<Path> The paths of the executables found.
+	 * @return The paths of the executables found.
 	 */
-	/*
-	function find(string $command): iterable {
-		foreach ($this->paths as $directory) yield from $this->findExecutables($directory, $command);
-	}*/
+	public Stream<Path> find(String command) {
+		var streams = (Stream<Path>[]) paths.stream().map(directory -> findExecutables(directory, command)).toArray(Stream<?>[]::new); // TODO unchecked cast
+		return Stream.of(streams).flatMap(Function.identity());
+	}
 
 	/**
 	 * Gets a value indicating whether the specified file is executable.
@@ -115,7 +118,7 @@ final class Finder {
 	 */
 	private boolean checkFilePermissions(Path path) {
 		try {
-			var attributes = Files.readAttributes(path, "unix:*");
+			var attributes = Files.readAttributes(path, "unix:gid,mode,uid");
 			var process = new com.sun.security.auth.module.UnixSystem();
 
 			// Others.
@@ -142,15 +145,17 @@ final class Finder {
 	 * Finds the instances of an executable in the specified directory.
 	 * @param directory The directory path.
 	 * @param command The command to be resolved.
-	 * @return iterable<Path> The paths of the executables found.
+	 * @return The paths of the executables found.
 	 */
-	/*
-	private function findExecutables(Path directory, String command): iterable {
-		$basePath = (string) getcwd();
-		foreach (["", ...self::isWindows ? $this->extensions : []] as $extension) {
-			$resolvedPath = Path::makeAbsolute(Path::join($directory, "$command$extension"), $basePath);
-			if ($this->isExecutable($resolvedPath))
-				yield new Path(str_replace("/", DIRECTORY_SEPARATOR, $resolvedPath));
-		}
-	}*/
+	private Stream<Path> findExecutables(Path directory, String command) {
+
+		// TODO
+		var toto = new ArrayList<String>(extensions.size() + 1);
+		toto.add("");
+		if (isWindows) toto.addAll(extensions);
+
+		return toto.stream()
+			.map(extension -> directory.resolve(command + extension).toAbsolutePath())
+			.filter(this::isExecutable);
+	}
 }
