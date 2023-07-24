@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 /**
  * Runs a main class from the "example" folder.
  */
-@SuppressWarnings({"PMD.NoPackage", "PMD.SystemPrintln", "PMD.UseUtilityClass"})
+@SuppressWarnings({"PMD.NoPackage", "PMD.UseUtilityClass"})
 class Example {
 
 	/**
@@ -22,6 +22,7 @@ class Example {
 	 * Script entry point.
 	 * @param args The command line arguments.
 	 */
+	@SuppressWarnings("PMD.SystemPrintln")
 	public static void main(String... args) throws InterruptedException, IOException {
 		if (args.length == 0) {
 			System.err.println("You must specify an example to run.");

@@ -6,6 +6,8 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +32,7 @@ final class FinderTest {
 		var pathExt = System.getenv("PATHEXT");
 		var extensions = pathExt == null || pathExt.isEmpty()
 			? List.of(".exe", ".cmd", ".bat", ".com")
-			: Arrays.stream(pathExt.split(";")).map(item -> item.toLowerCase()).toList();
+			: Arrays.stream(pathExt.split(";")).map(item -> item.toLowerCase(Locale.getDefault())).toList();
 
 		assertEquals(extensions, new Finder().extensions);
 

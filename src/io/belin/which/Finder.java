@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
@@ -69,7 +70,7 @@ public final class Finder {
 				: Arrays.stream(pathEnv.split(isWindows ? ";" : File.pathSeparator)).map(Path::of).toList();
 		}
 
-		this.extensions = extensionList.stream().map(item -> item.toLowerCase()).collect(Collectors.toList());
+		this.extensions = extensionList.stream().map(item -> item.toLowerCase(Locale.getDefault())).collect(Collectors.toList());
 		this.paths = pathList.stream()
 			.map(item -> item.toString().replaceAll("^\"|\"$", ""))
 			.filter(item -> !item.isEmpty())
@@ -136,7 +137,7 @@ public final class Finder {
 			.filter(value -> value.contains("."))
 			.map(value -> value.substring(value.lastIndexOf('.')));
 
-		return extension.isEmpty() ? false : extensions.contains(extension.get().toLowerCase());
+		return extension.isPresent() && extensions.contains(extension.get().toLowerCase(Locale.getDefault()));
 	}
 
 	/**
@@ -144,6 +145,7 @@ public final class Finder {
 	 * @param path The file to be checked.
 	 * @return Value indicating whether the specified file is executable.
 	 */
+	@SuppressWarnings("PMD.AvoidUsingOctalValues")
 	private boolean checkFilePermissions(Path path) {
 		try {
 			var attributes = Files.readAttributes(path, "unix:gid,mode,uid");
@@ -162,7 +164,7 @@ public final class Finder {
 			if ((perms & 0100) != 0) return process.getUid() == uid;
 
 			// Root.
-			return (perms & (0100 | 0010)) != 0 ? uid == 0 : false;
+			return (perms & (0100 | 0010)) != 0 && uid == 0;
 		}
 		catch (IOException e) {
 			return false;

@@ -15,6 +15,7 @@ final class ResultSetTest {
 
 	@Test
 	@DisplayName("all()")
+	@SuppressWarnings("PMD.ConfusingTernary")
 	void all() {
 		var paths = List.of(Path.of("share"));
 
