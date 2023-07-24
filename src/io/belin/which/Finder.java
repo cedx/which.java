@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 /**
  * Finds the instances of an executable in the system path.
  */
-final class Finder {
+public final class Finder {
 
 	/**
 	 * Value indicating whether the current platform is Windows.
@@ -94,6 +94,36 @@ final class Finder {
 	public boolean isExecutable(Path file) {
 		if (!Files.isRegularFile(file)) return false;
 		return isWindows ? checkFileExtension(file) : checkFilePermissions(file);
+	}
+
+	/**
+	 * Finds the instances of the specified command in the system path.
+	 * @param command The command to be resolved.
+	 * @return The search results.
+	 */
+	public static ResultSet which(String command) {
+		return which(command, null);
+	}
+
+	/**
+	 * Finds the instances of the specified command in the system path.
+	 * @param command The command to be resolved.
+	 * @param paths The system path. Defaults to the `PATH` environment variable.
+	 * @return The search results.
+	 */
+	public static ResultSet which(String command, List<Path> paths) {
+		return which(command, paths, null);
+	}
+
+	/**
+	 * Finds the instances of the specified command in the system path.
+	 * @param command The command to be resolved.
+	 * @param paths The system path. Defaults to the `PATH` environment variable.
+	 * @param extensions The executable file extensions. Defaults to the `PATHEXT` environment variable.
+	 * @return The search results.
+	 */
+	public static ResultSet which(String command, List<Path> paths, List<String> extensions) {
+		return new ResultSet(command, new Finder(paths, extensions));
 	}
 
 	/**
