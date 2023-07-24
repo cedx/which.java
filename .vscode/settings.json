@@ -6,7 +6,7 @@
 	"files.trimTrailingWhitespace": true,
 	"java.project.outputPath": "bin",
 	"java.project.referencedLibraries": ["lib/**/*.jar"],
-	"java.project.sourcePaths": ["example", "src", "test"],
+	"java.project.sourcePaths": ["example", "scripts", "src", "test"],
 	"[markdown]": {"files.trimTrailingWhitespace": false},
 	"[yaml]": {"editor.insertSpaces": true}
 }
