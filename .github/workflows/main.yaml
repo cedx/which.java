@@ -6,8 +6,6 @@ jobs:
     steps:
       - name: Fetch sources
         uses: actions/checkout@v3
-      - name: Set up Lix
-        uses: lix-pm/setup-lix@master
       - name: Set up Java
         uses: actions/setup-java@v3
         with:
@@ -15,28 +13,19 @@ jobs:
           java-version: 17
       - name: Set up Ivy
         run: |
-          wget https://dlcdn.apache.org/ant/ivy/2.5.1/apache-ivy-2.5.1-bin-with-deps.tar.gz
-          tar --directory=var --extract --file=apache-ivy-2.5.1-bin-with-deps.tar.gz --strip-components=1
-      - name: Cache Haxe dependencies
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/haxe
-            ~/AppData/Roaming/haxe
-          key: haxe-${{runner.os}}-lix-${{hashFiles('.haxerc', 'haxe_libraries/*.hxml')}}
-          restore-keys: haxe-${{runner.os}}-lix-
-      - name: Cache Java dependencies
+          wget --directory-prefix=var https://dlcdn.apache.org/ant/ivy/2.5.1/apache-ivy-2.5.1-bin-with-deps.tar.gz
+          mkdir --parents var/ivy
+          tar --directory=var/ivy --extract --file=var/apache-ivy-2.5.1-bin-with-deps.tar.gz --strip-components=1
+      - name: Cache dependencies
         uses: actions/cache@v3
         with:
           path: lib
           key: java-${{runner.os}}-ivy-${{hashFiles('ivy.xml')}}
           restore-keys: java-${{runner.os}}-ivy-
       - name: Install dependencies
-        run: |
-          lix download
-          java -jar var/ivy-2.5.1.jar -cache lib -cachepath .classpath
+        run: java -jar var/ivy/ivy-2.5.1.jar -cache lib -cachepath .classpath
       - name: Run tests
-        run: lix Test
+        run: java scripts/Test.java
       - name: Collect code coverage
         if: success()
         uses: codecov/codecov-action@v3
