@@ -2,6 +2,7 @@ package io.belin.which;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -26,8 +27,8 @@ public final class ResultSet {
 	 * @param Finder finder The finder used to perform the search.
 	 */
 	ResultSet(String command, Finder finder) {
-		this.command = command;
-		this.finder = finder;
+		this.command = Objects.requireNonNull(command);
+		this.finder = Objects.requireNonNull(finder);
 	}
 
 	/**

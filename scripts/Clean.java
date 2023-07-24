@@ -16,30 +16,20 @@ class Clean {
 	 * @param args The command line arguments.
 	 */
 	public static void main(String... args) throws IOException {
-		if (Files.exists(Path.of("bin"))) removeDirectory(Path.of("bin"));
-		cleanDirectory(Path.of("var"));
+		cleanDirectory(Path.of("bin"), Path.of("which.ps1"));
+		cleanDirectory(Path.of("var"), Path.of(".gitkeep"));
 	}
 
 	/**
 	 * Recursively deletes all files in the specified directory.
 	 * @param directory The directory to clean.
+	 * @param exclude A file name to exclude from the deletion.
 	 */
-	private static void cleanDirectory(Path directory) throws IOException {
+	private static void cleanDirectory(Path directory, Path exclude) throws IOException {
 		Files.walk(Objects.requireNonNull(directory))
 			.skip(1)
 			.sorted(Comparator.reverseOrder())
-			.filter(file -> !file.getFileName().equals(Path.of(".gitkeep")))
-			.map(Path::toFile)
-			.forEach(File::delete);
-	}
-
-	/**
-	 * Recursively deletes the specified directory.
-	 * @param directory The directory to delete.
-	 */
-	private static void removeDirectory(Path directory) throws IOException {
-		Files.walk(Objects.requireNonNull(directory))
-			.sorted(Comparator.reverseOrder())
+			.filter(file -> !file.getFileName().equals(Objects.requireNonNull(exclude)))
 			.map(Path::toFile)
 			.forEach(File::delete);
 	}

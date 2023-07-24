@@ -84,6 +84,7 @@ public final class Finder {
 	 * @return The paths of the executables found.
 	 */
 	public Stream<Path> find(String command) {
+		Objects.requireNonNull(command);
 		return paths.stream().map(directory -> findExecutables(directory, command)).flatMap(Function.identity());
 	}
 
@@ -93,7 +94,7 @@ public final class Finder {
 	 * @return `true` if the specified file is executable, otherwise `false`.
 	 */
 	public boolean isExecutable(Path file) {
-		if (!Files.isRegularFile(file)) return false;
+		if (!Files.isRegularFile(Objects.requireNonNull(file))) return false;
 		return isWindows ? checkFileExtension(file) : checkFilePermissions(file);
 	}
 
