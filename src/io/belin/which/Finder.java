@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -147,7 +146,7 @@ final class Finder {
 	 * @return The paths of the executables found.
 	 */
 	private Stream<Path> findExecutables(Path directory, String command) {
-		return Stream.concat(Stream.of(""), Stream.of(extensions.toArray(String[]::new)))
+		return Stream.concat(Stream.of(""), isWindows ? Stream.of(extensions.toArray(String[]::new)) : Stream.empty())
 			.map(extension -> directory.resolve(command + extension).toAbsolutePath())
 			.filter(this::isExecutable);
 	}
