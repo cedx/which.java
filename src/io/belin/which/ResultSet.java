@@ -34,7 +34,6 @@ public final class ResultSet {
 	/**
 	 * Returns all instances of the searched command.
 	 * @return All search results.
-	 * @throws \RuntimeException The command has not been found.
 	 */
 	public Optional<List<Path>> all() {
 		var executables = stream().distinct().toList();
@@ -44,7 +43,6 @@ public final class ResultSet {
 	/**
 	 * Returns the first instance of the searched command.
 	 * @return The first search result.
-	 * @throws \RuntimeException The command has not been found.
 	 */
 	public Optional<Path> first() {
 		return stream().findFirst();
