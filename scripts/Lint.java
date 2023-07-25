@@ -17,7 +17,7 @@ class Lint {
 	/**
 	 * The list of directories to analyze.
 	 */
-	static final List<String> directories = List.of("example", "scripts", "src", "test");
+	static final List<String> directories = List.of("example", "scripts", "src/io/belin", "test");
 
 	/**
 	 * Script entry point.

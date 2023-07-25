@@ -34,7 +34,7 @@ class Test {
 		var pkgPath = Path.of(pack.replace('.', '/'));
 		shellExec("javac -d bin -g -Xlint:all,-path,-processing test/%s/*.java".formatted(pkgPath), environment);
 
-		var jacocoJar = "jacocoagent.jar";
+		var jacocoJar = Path.of("jacocoagent.jar");
 		var outputDirectory = Path.of("var");
 		extractJacocoJar(jacocoJar, outputDirectory);
 
@@ -73,12 +73,12 @@ class Test {
 
 	/**
 	 * Extracts the JaCoCo Agent archive into the specified output directory.
-	 * @param jarName The file name of the JaCoCo Agent archive.
+	 * @param jarFile The path of the JaCoCo Agent archive.
 	 * @param outputDirectory The path of the directory where to extract the agent.
 	 */
-	private static void extractJacocoJar(String jarName, Path outputDirectory)
+	private static void extractJacocoJar(Path jarFile, Path outputDirectory)
 	throws InterruptedException, IOException, ParserConfigurationException, SAXException {
-		var outputFile = Objects.requireNonNull(outputDirectory).resolve(Objects.requireNonNull(jarName));
+		var outputFile = Objects.requireNonNull(outputDirectory).resolve(Objects.requireNonNull(jarFile));
 		if (Files.exists(outputFile)) return;
 
 		var xml = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new File("ivy.xml"));
@@ -92,8 +92,8 @@ class Test {
 			.orElseThrow()
 			.getAttribute("rev");
 
-		exec("jar --extract --file=lib/org.jacoco/org.jacoco.agent/jars/org.jacoco.agent-%s.jar %s".formatted(version, jarName));
-		Files.move(Path.of(jarName), outputFile);
+		exec("jar --extract --file=lib/org.jacoco/org.jacoco.agent/jars/org.jacoco.agent-%s.jar %s".formatted(version, jarFile));
+		Files.move(jarFile, outputFile);
 	}
 
 	/**
