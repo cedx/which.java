@@ -18,7 +18,6 @@ import picocli.CommandLine.Parameters;
 	mixinStandardHelpOptions = true,
 	versionProvider = Program.class
 )
-@SuppressWarnings("PMD.SystemPrintln")
 class Program implements Callable<Integer>, IVersionProvider {
 
 	/**
@@ -58,15 +57,24 @@ class Program implements Callable<Integer>, IVersionProvider {
 
 	/**
 	 * Runs this program.
+	 * @return The exit code.
 	 */
-	@Override public Integer call() {
+	@Override
+	@SuppressWarnings("PMD.SystemPrintln")
+	public Integer call() {
 		var finder = new Finder();
 		var resultSet = new ResultSet(command, finder);
 
 		var executables = all ? resultSet.all() : resultSet.first().map(path -> List.of(path));
 		if (!silent) {
-			if (executables.isPresent()) System.out.println(String.join(System.lineSeparator(), executables.get().toArray(String[]::new)));
-			else { /* TODO */}
+			if (executables.isPresent()) {
+				var paths = executables.get().stream().map(path -> path.toString());
+				System.out.println(String.join(System.lineSeparator(), paths.toArray(String[]::new)));
+			}
+			else {
+				var paths = finder.paths.stream().map(path -> path.toString());
+				System.err.printf("No '%s' in (%s)%n", command, String.join(Finder.isWindows ? ";" : File.pathSeparator, paths.toArray(String[]::new)));
+			}
 		}
 
 		return executables.isEmpty() ? 1 : 0;
@@ -76,7 +84,7 @@ class Program implements Callable<Integer>, IVersionProvider {
 	 * Gets the package version of this program.
 	 * @return The package version of this program.
 	 */
-	public String[] getVersion() {
+	@Override public String[] getVersion() {
 		return new String[] {getClass().getPackage().getImplementationVersion()};
 	}
 }
