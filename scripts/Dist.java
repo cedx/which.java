@@ -27,7 +27,8 @@ class Dist {
 		var license = Path.of("LICENSE.md");
 		Files.copy(license, directory.resolve(license));
 
-		exec("jar --create --file=bin/%s.jar --manifest=etc/manifest.properties -C bin .".formatted(pack));
+		var parts = pack.split("\\.");
+		exec("jar --create --file=bin/%s.jar --manifest=etc/manifest.properties -C bin .".formatted(parts[parts.length - 1]));
 	}
 
 	/**
