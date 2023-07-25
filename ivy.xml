@@ -9,6 +9,7 @@
 		</description>
 	</info>
 	<dependencies>
+		<dependency org="info.picocli" name="picocli" rev="4.7.4"/>
 		<dependency org="net.sourceforge.pmd" name="pmd-cli" rev="7.0.0-rc3"/>
 		<dependency org="org.jacoco" name="org.jacoco.agent" rev="0.8.10"/>
 		<dependency org="org.jacoco" name="org.jacoco.cli" rev="0.8.10"/>
