@@ -6,8 +6,6 @@
 	<property name="vendor.id" value="io.belin"/>
 	<property name="vendor.name" value="Cédric Belin"/>
 
-	<echoproperties prefix="ver"/>
-
 	<description>${project.title} ${project.version}</description>
 
 	<path id="project.classpath">
