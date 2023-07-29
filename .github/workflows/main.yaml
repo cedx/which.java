@@ -17,7 +17,7 @@ jobs:
       - name: Set up Ant
         uses: cedx/setup-ant@main
         with:
-          optional-tasks: false
+          optional-tasks: true
       - name: Cache dependencies
         uses: actions/cache@v3
         with:
