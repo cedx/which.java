@@ -16,6 +16,8 @@ jobs:
           java-version: 17
       - name: Set up Ant
         uses: cedx/setup-ant@main
+        with:
+          optional-tasks: false
       - name: Cache dependencies
         uses: actions/cache@v3
         with:
