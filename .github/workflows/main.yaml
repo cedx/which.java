@@ -11,11 +11,8 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-      - name: Set up Ivy
-        run: |
-          wget --directory-prefix=var https://dlcdn.apache.org/ant/ivy/2.5.1/apache-ivy-2.5.1-bin-with-deps.tar.gz
-          mkdir --parents var/ivy
-          tar --directory=var/ivy --extract --file=var/apache-ivy-2.5.1-bin-with-deps.tar.gz --strip-components=1
+      - name: Set up Ant
+        uses: cedx/setup-ant@main
       - name: Cache dependencies
         uses: actions/cache@v3
         with:
@@ -23,9 +20,9 @@ jobs:
           key: java-${{runner.os}}-ivy-${{hashFiles('ivy.xml')}}
           restore-keys: java-${{runner.os}}-ivy-
       - name: Install dependencies
-        run: java -jar var/ivy/ivy-2.5.1.jar -cache lib -cachepath .classpath
+        run: ant install
       - name: Run tests
-        run: java scripts/Test.java
+        run: ant -emacs test
       - name: Collect code coverage
         if: success()
         uses: codecov/codecov-action@v3
