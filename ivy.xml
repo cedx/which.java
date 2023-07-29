@@ -8,11 +8,17 @@
 			Find the instances of an executable in the system path.
 		</description>
 	</info>
+
 	<dependencies>
-		<dependency org="info.picocli" name="picocli" rev="4.7.4"/>
-		<dependency org="net.sourceforge.pmd" name="pmd-cli" rev="7.0.0-rc3"/>
+		<dependency org="info.picocli" name="picocli" rev="4.+"/>
+		<dependency org="net.sourceforge.pmd" name="pmd-ant" rev="7.+"/>
+		<dependency org="net.sourceforge.pmd" name="pmd-cli" rev="7.+"/>
 		<dependency org="org.jacoco" name="org.jacoco.agent" rev="0.8.10"/>
-		<dependency org="org.jacoco" name="org.jacoco.cli" rev="0.8.10"/>
-		<dependency org="org.junit.platform" name="junit-platform-console-standalone" rev="1.10.0"/>
+		<dependency org="org.jacoco" name="org.jacoco.ant" rev="0.8.+"/>
+		<dependency org="org.jacoco" name="org.jacoco.cli" rev="0.8.+"/>
+		<dependency org="org.junit.jupiter" name="junit-jupiter" rev="5.+"/>
+		<dependency org="org.junit.platform" name="junit-platform-console" rev="1.+"/>
+		<dependency org="org.junit.platform" name="junit-platform-launcher" rev="1.+"/>
+		<dependency org="org.junit.platform" name="junit-platform-suite" rev="1.+"/>
 	</dependencies>
 </ivy-module>
