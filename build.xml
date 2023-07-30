@@ -72,11 +72,11 @@
 	<target name="lint" description="Performs the static analysis of source code." depends="build">
 		<taskdef name="cpd" className="net.sourceforge.pmd.ant.CPDTask" classPathRef="project.classpath"/>
 		<cpd minimumTokenCount="100">
-			<fileset dir="src"/>
+			<fileset dir="src/io/belin"/>
 			<fileset dir="test"/>
 		</cpd>
 		<java className="net.sourceforge.pmd.cli.PmdCli" classPathRef="project.classpath" failOnError="true" fork="true">
-			<arg line="check --cache=var/pmd.cache --dir=example,src,test --no-progress --rulesets=etc/pmd.xml"/>
+			<arg line="check --cache=var/pmd.cache --dir=example,src/io/belin,test --no-progress --rulesets=etc/pmd.xml"/>
 		</java>
 	</target>
 
