@@ -14,10 +14,8 @@
 	</path>
 
 	<target name="build" description="Builds the project.">
-		<pathconvert property="picocli.sources">
+		<unzip dest="src">
 			<fileset dir="lib" includes="picocli-*-sources.jar"/>
-		</pathconvert>
-		<unzip src="${picocli.sources}" dest="src">
 			<patternset includes="**/CommandLine.java"/>
 		</unzip>
 		<mkdir dir="bin"/>
@@ -29,6 +27,7 @@
 	<target name="clean" description="Deletes all generated files.">
 		<delete includeEmptyDirs="true">
 			<fileset dir="bin" excludes="*.ps1"/>
+			<fileset dir="src/picocli"/>
 			<fileset dir="var" excludes=".gitkeep"/>
 		</delete>
 	</target>
