@@ -190,7 +190,7 @@ public final class Finder {
 	/**
 	 * Provides convenient access to the stream of search results.
 	 */
-	static class ResultSet {
+	public static class ResultSet {
 
 		/**
 		 * The searched command.
