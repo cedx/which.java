@@ -8,9 +8,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * Tests the features of the {@link ResultSet} class.
+ * Tests the features of the {@link Finder.ResultSet} class.
  */
-@DisplayName("ResultSet")
+@DisplayName("Finder.ResultSet")
 final class ResultSetTest {
 
 	@Test
