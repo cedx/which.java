@@ -64,7 +64,7 @@ class Program implements Callable<Integer>, IVersionProvider {
 	@SuppressWarnings("PMD.SystemPrintln")
 	public Integer call() {
 		var finder = new Finder();
-		var resultSet = new ResultSet(command, finder);
+		var resultSet = new Finder.ResultSet(command, finder);
 
 		var executables = all ? resultSet.all() : resultSet.first().map(path -> List.of(path));
 		if (!silent) {

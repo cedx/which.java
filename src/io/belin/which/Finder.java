@@ -82,26 +82,6 @@ public final class Finder {
 	}
 
 	/**
-	 * Finds the instances of an executable in the system path.
-	 * @param command The command to be resolved.
-	 * @return The paths of the executables found.
-	 */
-	public Stream<Path> find(String command) {
-		Objects.requireNonNull(command);
-		return paths.stream().map(directory -> findExecutables(directory, command)).flatMap(Function.identity());
-	}
-
-	/**
-	 * Gets a value indicating whether the specified file is executable.
-	 * @param file The path of the file to be checked.
-	 * @return `true` if the specified file is executable, otherwise `false`.
-	 */
-	public boolean isExecutable(Path file) {
-		if (!Files.isRegularFile(Objects.requireNonNull(file))) return false;
-		return isWindows ? checkFileExtension(file) : checkFilePermissions(file);
-	}
-
-	/**
 	 * Finds the instances of the specified command in the system path.
 	 * @param command The command to be resolved.
 	 * @return The search results.
@@ -129,6 +109,26 @@ public final class Finder {
 	 */
 	public static ResultSet which(String command, List<Path> paths, List<String> extensions) {
 		return new ResultSet(command, new Finder(paths, extensions));
+	}
+
+	/**
+	 * Finds the instances of an executable in the system path.
+	 * @param command The command to be resolved.
+	 * @return The paths of the executables found.
+	 */
+	public Stream<Path> find(String command) {
+		Objects.requireNonNull(command);
+		return paths.stream().map(directory -> findExecutables(directory, command)).flatMap(Function.identity());
+	}
+
+	/**
+	 * Gets a value indicating whether the specified file is executable.
+	 * @param file The path of the file to be checked.
+	 * @return `true` if the specified file is executable, otherwise `false`.
+	 */
+	public boolean isExecutable(Path file) {
+		if (!Files.isRegularFile(Objects.requireNonNull(file))) return false;
+		return isWindows ? checkFileExtension(file) : checkFilePermissions(file);
 	}
 
 	/**
@@ -185,5 +185,56 @@ public final class Finder {
 		return Stream.concat(Stream.of(""), isWindows ? extensions.stream() : Stream.empty())
 			.map(extension -> directory.resolve(command + extension).toAbsolutePath())
 			.filter(this::isExecutable);
+	}
+
+	/**
+	 * Provides convenient access to the stream of search results.
+	 */
+	static class ResultSet {
+
+		/**
+		 * The searched command.
+		 */
+		private final String command;
+
+		/**
+		 * The finder used to perform the search.
+		 */
+		private final Finder finder;
+
+		/**
+		 * Creates a new result set.
+		 * @param command The searched command.
+		 * @param Finder finder The finder used to perform the search.
+		 */
+		ResultSet(String command, Finder finder) {
+			this.command = Objects.requireNonNull(command);
+			this.finder = Objects.requireNonNull(finder);
+		}
+
+		/**
+		 * Returns all instances of the searched command.
+		 * @return All search results.
+		 */
+		public Optional<List<Path>> all() {
+			var executables = stream().distinct().toList();
+			return executables.isEmpty() ? Optional.empty() : Optional.of(executables);
+		}
+
+		/**
+		 * Returns the first instance of the searched command.
+		 * @return The first search result.
+		 */
+		public Optional<Path> first() {
+			return stream().findFirst();
+		}
+
+		/**
+		 * Returns a stream of instances of the searched command.
+		 * @return A stream of the search results.
+		 */
+		public Stream<Path> stream() {
+			return finder.find(command);
+		}
 	}
 }
