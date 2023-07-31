@@ -70,7 +70,10 @@ public final class Finder {
 				: Arrays.stream(pathEnv.split(isWindows ? ";" : File.pathSeparator)).map(Path::of).toList();
 		}
 
-		this.extensions = extensionList.stream().map(item -> item.toLowerCase(Locale.getDefault())).collect(Collectors.toList());
+		this.extensions = extensionList.stream()
+			.map(item -> item.toLowerCase(Locale.getDefault()))
+			.collect(Collectors.toList());
+
 		this.paths = pathList.stream()
 			.map(item -> item.toString().replaceAll("^\"|\"$", ""))
 			.filter(item -> !item.isEmpty())
