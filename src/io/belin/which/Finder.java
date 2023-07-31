@@ -160,11 +160,11 @@ public final class Finder {
 			if ((perms & 0001) != 0) return true;
 
 			// Group.
-			var gid = (long) attributes.get("gid");
+			var gid = (int) attributes.get("gid");
 			if ((perms & 0010) != 0) return process.getGid() == gid;
 
 			// Owner.
-			var uid = (long) attributes.get("uid");
+			var uid = (int) attributes.get("uid");
 			if ((perms & 0100) != 0) return process.getUid() == uid;
 
 			// Root.
