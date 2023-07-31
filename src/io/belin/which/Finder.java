@@ -179,7 +179,7 @@ public final class Finder {
 	 * @return The paths of the executables found.
 	 */
 	private Stream<Path> findExecutables(Path directory, String command) {
-		return Stream.concat(Stream.of(""), isWindows ? Stream.of(extensions.toArray(String[]::new)) : Stream.empty())
+		return Stream.concat(Stream.of(""), isWindows ? extensions.stream() : Stream.empty())
 			.map(extension -> directory.resolve(command + extension).toAbsolutePath())
 			.filter(this::isExecutable);
 	}

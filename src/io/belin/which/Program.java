@@ -1,6 +1,7 @@
 package io.belin.which;
 
 import java.util.concurrent.Callable;
+import java.util.stream.Collectors;
 import java.io.File;
 import java.util.List;
 import picocli.CommandLine;
@@ -69,11 +70,11 @@ class Program implements Callable<Integer>, IVersionProvider {
 		if (!silent) {
 			if (executables.isPresent()) {
 				var paths = executables.get().stream().map(path -> path.toString());
-				System.out.println(String.join(System.lineSeparator(), paths.toArray(String[]::new)));
+				System.out.println(paths.collect(Collectors.joining(System.lineSeparator())));
 			}
 			else {
 				var paths = finder.paths.stream().map(path -> path.toString());
-				System.err.printf("No '%s' in (%s)%n", command, String.join(Finder.isWindows ? ";" : File.pathSeparator, paths.toArray(String[]::new)));
+				System.err.printf("No '%s' in (%s)%n", command, paths.collect(Collectors.joining(Finder.isWindows ? ";" : File.pathSeparator)));
 			}
 		}
 
