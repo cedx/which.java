@@ -107,7 +107,7 @@ public final class Finder {
 	 * @return The search results.
 	 */
 	public static ResultSet which(String command) {
-		return which(command, null);
+		return which(command, null, null);
 	}
 
 	/**
