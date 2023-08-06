@@ -1,9 +1,9 @@
 package io.belin.which;
 
-import java.util.concurrent.Callable;
-import java.util.stream.Collectors;
 import java.io.File;
+import java.util.concurrent.Callable;
 import java.util.List;
+import java.util.stream.Collectors;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.IVersionProvider;
