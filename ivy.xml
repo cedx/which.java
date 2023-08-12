@@ -5,7 +5,7 @@
 
 	<info organisation="io.belin" module="which" revision="2.0.0">
 		<description homepage="https://docs.belin.io/which.java">
-			Find the instances of an executable in the system path.
+			Find the instances of an executable in the system path. Like the `which` Linux command.
 		</description>
 	</info>
 
