@@ -1,7 +1,7 @@
 # Application programming interface
 This package provides the `Finder.which(String command)` method, allowing to locate a command in the system path.
 
-This method takes the name of the command to locate, and returns a `Finder.ResultSet` with the three following methods :
+This method takes the name of the command to locate, and returns a `Finder.ResultSet` with the three following methods:
 
 - `all()` : get all instances of the searched command.
 - `first()` : get the first instance of the searched command.

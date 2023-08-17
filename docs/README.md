@@ -2,11 +2,14 @@
 Find the instances of an executable in the system path, in [Java](https://www.java.com).
 
 ## Quick start
-Download the latest version of **Which for Java** from [GitHub releases](https://github.com/cedx/which.java/releases):
+Download the latest JAR file of **Which for Java** from the GitHub releases:  
+https://github.com/cedx/which.java/releases/latest
 
-TODO
+Add it to your class path. Now in your [Java](https://www.java.com) code, you can use:
 
-For detailed instructions, see the [installation guide](installation.md).
+```java
+import io.belin.which.*;
+```
 
 ## Usage
 - [Application programming interface](usage/api.md)
@@ -14,5 +17,5 @@ For detailed instructions, see the [installation guide](installation.md).
 
 ## See also
 - [API reference](api/)
-- [GitHub package](https://github.com/cedx/which.java/releases)
+- [GitHub releases](https://github.com/cedx/which.java/releases)
 - [Code coverage](https://app.codecov.io/gh/cedx/which.java)
