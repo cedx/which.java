@@ -1,11 +1,11 @@
 # Which for Java
-Find the instances of an executable in the system path, in [Java](https://www.java.com).
+Find the instances of an executable in the system path, in [Java](https://www.oracle.com/java).
 
 ## Quick start
 Download the latest JAR file of **Which for Java** from the GitHub releases:  
 https://github.com/cedx/which.java/releases/latest
 
-Add it to your class path. Now in your [Java](https://www.java.com) code, you can use:
+Add it to your class path. Now in your [Java](https://www.oracle.com/java) code, you can use:
 
 ```java
 import io.belin.which.*;
