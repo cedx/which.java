@@ -29,7 +29,7 @@
 	</target>
 
 	<target name="clean" description="Deletes all generated files.">
-		<delete includeEmptyDirs="true">
+		<delete failonerror="false" includeEmptyDirs="true">
 			<fileset dir="bin" excludes="*.ps1"/>
 			<fileset dir="src/picocli"/>
 			<fileset dir="var" excludes=".gitkeep"/>
