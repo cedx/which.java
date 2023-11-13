@@ -4,12 +4,12 @@
 Find the instances of an executable in the system path, in [Java](https://www.oracle.com/java).
 
 ## Documentation
-- [User guide](https://docs.belin.io/which.java)
-- [API reference](https://docs.belin.io/which.java/api)
+- [User guide](https://cedx.github.io/which.java)
+- [API reference](https://cedx.github.io/which.java/api)
 
 ## Development
 - [Git repository](https://github.com/cedx/which.java)
 - [Submit an issue](https://github.com/cedx/which.java/issues)
 
 ## License
-[Which for Java](https://docs.belin.io/which.java) is distributed under the MIT License.
+[Which for Java](https://cedx.github.io/which.java) is distributed under the MIT License.
