@@ -4,7 +4,7 @@
 	xsi:noNamespaceSchemaLocation="https://ant.apache.org/ivy/schemas/ivy.xsd">
 
 	<info organisation="io.belin" module="which" revision="2.0.0">
-		<description homepage="https://cedx.github.io/which.java">
+		<description homepage="https://github.com/cedx/which.java">
 			Find the instances of an executable in the system path. Like the `which` Linux command.
 		</description>
 	</info>

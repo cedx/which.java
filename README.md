@@ -12,4 +12,4 @@ Find the instances of an executable in the system path, in [Java](https://www.or
 - [Submit an issue](https://github.com/cedx/which.java/issues)
 
 ## License
-[Which for Java](https://cedx.github.io/which.java) is distributed under the MIT License.
+[Which for Java](https://github.com/cedx/which.java) is distributed under the MIT License.
