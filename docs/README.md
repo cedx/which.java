@@ -18,4 +18,3 @@ import io.belin.which.*;
 ## See also
 - [API reference](api/)
 - [GitHub releases](https://github.com/cedx/which.java/releases)
-- [Code coverage](https://app.codecov.io/gh/cedx/which.java)
