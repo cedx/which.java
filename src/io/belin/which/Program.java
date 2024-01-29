@@ -1,6 +1,7 @@
 package io.belin.which;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.util.concurrent.Callable;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -66,14 +67,14 @@ class Program implements Callable<Integer>, IVersionProvider {
 		var finder = new Finder();
 		var resultSet = new Finder.ResultSet(command, finder);
 
-		var executables = all ? resultSet.all() : resultSet.first().map(path -> List.of(path));
+		var executables = all ? resultSet.all() : resultSet.first().map(List::of);
 		if (!silent) {
 			if (executables.isPresent()) {
-				var paths = executables.get().stream().map(path -> path.toString());
+				var paths = executables.get().stream().map(Path::toString);
 				System.out.println(paths.collect(Collectors.joining(System.lineSeparator())));
 			}
 			else {
-				var paths = finder.paths.stream().map(path -> path.toString());
+				var paths = finder.paths.stream().map(Path::toString);
 				System.err.printf("No '%s' in (%s)%n", command, paths.collect(Collectors.joining(Finder.isWindows ? ";" : File.pathSeparator)));
 			}
 		}

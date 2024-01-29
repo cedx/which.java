@@ -47,12 +47,12 @@ final class FinderTest {
 		// It should return the path of the `executable.cmd` file on Windows.
 		var executables = finder.find("executable").toList();
 		assertEquals(Finder.isWindows ? 1 : 0, executables.size());
-		if (Finder.isWindows) assertTrue(executables.get(0).endsWith("share\\executable.cmd"));
+		if (Finder.isWindows) assertTrue(executables.getFirst().endsWith("share\\executable.cmd"));
 
 		// It should return the path of the `executable.sh` file on POSIX.
 		executables = finder.find("executable.sh").toList();
 		assertEquals(Finder.isWindows ? 0 : 1, executables.size());
-		if (!Finder.isWindows) assertTrue(executables.get(0).endsWith("share/executable.sh"));
+		if (!Finder.isWindows) assertTrue(executables.getFirst().endsWith("share/executable.sh"));
 
 		// It should return an empty array if the searched command is not executable or not found.
 		assertEquals(0, finder.find("not_executable.sh").count());

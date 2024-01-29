@@ -6,7 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.function.Function;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -118,7 +117,7 @@ public final class Finder {
 	 */
 	public Stream<Path> find(String command) {
 		Objects.requireNonNull(command);
-		return paths.stream().map(directory -> findExecutables(directory, command)).flatMap(Function.identity());
+		return paths.stream().flatMap(directory -> findExecutables(directory, command));
 	}
 
 	/**
@@ -205,7 +204,7 @@ public final class Finder {
 		/**
 		 * Creates a new result set.
 		 * @param command The searched command.
-		 * @param Finder finder The finder used to perform the search.
+		 * @param finder The finder used to perform the search.
 		 */
 		ResultSet(String command, Finder finder) {
 			this.command = Objects.requireNonNull(command);
