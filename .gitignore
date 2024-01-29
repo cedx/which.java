@@ -1,6 +1,7 @@
 /**/.DS_Store
 /.idea/
 /bin/
+/etc/http-client.private.env.json
 /lib/
 /src/picocli/
 /var/
