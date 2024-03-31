@@ -1,5 +1,5 @@
 # Which for Java
-![Java](https://badgen.net/badge/java/%3E%3D17.0.0/green) ![Version](https://badgen.net/badge/project/v2.0.0/blue) ![License](https://badgen.net/badge/license/MIT/blue)
+![Java](https://badgen.net/badge/java/%3E%3D21.0.0/green) ![Version](https://badgen.net/badge/project/v2.0.0/blue) ![License](https://badgen.net/badge/license/MIT/blue)
 
 Find the instances of an executable in the system path, in [Java](https://www.oracle.com/java).
 

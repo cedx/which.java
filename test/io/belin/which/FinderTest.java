@@ -52,7 +52,7 @@ final class FinderTest {
 		// It should return the path of the `executable.sh` file on POSIX.
 		executables = finder.find("executable.sh").toList();
 		assertEquals(Finder.isWindows ? 0 : 1, executables.size());
-		if (!Finder.isWindows) assertTrue(executables.getFirst().endsWith("share/executable.sh"));
+		if (!Finder.isWindows) assertTrue(executables.getFirst().endsWith("res/executable.sh"));
 
 		// It should return an empty array if the searched command is not executable or not found.
 		assertEquals(0, finder.find("not_executable.sh").count());
@@ -66,12 +66,12 @@ final class FinderTest {
 
 		// It should return `false` if the searched command is not executable or not found.
 		assertFalse(finder.isExecutable(Path.of("foo/bar/baz.qux")));
-		assertFalse(finder.isExecutable(Path.of("share/not_executable.sh")));
+		assertFalse(finder.isExecutable(Path.of("res/not_executable.sh")));
 
 		// It should return `false` for a POSIX executable, when test is run on Windows.
-		assertEquals(!Finder.isWindows, finder.isExecutable(Path.of("share/executable.sh")));
+		assertEquals(!Finder.isWindows, finder.isExecutable(Path.of("res/executable.sh")));
 
 		// It should return `false` for a Windows executable, when test is run on POSIX.
-		assertEquals(Finder.isWindows, finder.isExecutable(Path.of("share/executable.cmd")));
+		assertEquals(Finder.isWindows, finder.isExecutable(Path.of("res/executable.cmd")));
 	}
 }

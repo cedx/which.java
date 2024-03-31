@@ -32,7 +32,7 @@ final class ResultSetTest {
 		if (Finder.isWindows) assertTrue(executables.isEmpty());
 		else {
 			assertEquals(1, executables.get().size());
-			assertTrue(executables.get().getFirst().toString().endsWith("/share/executable.sh"));
+			assertTrue(executables.get().getFirst().toString().endsWith("/res/executable.sh"));
 		}
 
 		// It should return an empty array if the searched command is not executable or not found.
@@ -53,7 +53,7 @@ final class ResultSetTest {
 		// It should return the path of the `executable.sh` file on POSIX.
 		executable = which("executable.sh", paths).first();
 		if (Finder.isWindows) assertTrue(executable.isEmpty());
-		else assertTrue(executable.get().toString().endsWith("/share/executable.sh"));
+		else assertTrue(executable.get().toString().endsWith("/res/executable.sh"));
 
 		// It should return an empty string if the searched command is not executable or not found.
 		assertTrue(which("not_executable.sh", paths).first().isEmpty());
