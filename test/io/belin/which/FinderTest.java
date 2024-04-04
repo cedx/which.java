@@ -42,12 +42,12 @@ final class FinderTest {
 	@Test
 	@DisplayName("find()")
 	void find() {
-		var finder = new Finder(List.of(Path.of("share")));
+		var finder = new Finder(List.of(Path.of("res")));
 
 		// It should return the path of the `executable.cmd` file on Windows.
 		var executables = finder.find("executable").toList();
 		assertEquals(Finder.isWindows ? 1 : 0, executables.size());
-		if (Finder.isWindows) assertTrue(executables.getFirst().endsWith("share\\executable.cmd"));
+		if (Finder.isWindows) assertTrue(executables.getFirst().endsWith("res\\executable.cmd"));
 
 		// It should return the path of the `executable.sh` file on POSIX.
 		executables = finder.find("executable.sh").toList();

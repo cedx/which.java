@@ -17,14 +17,14 @@ final class ResultSetTest {
 	@DisplayName("all()")
 	@SuppressWarnings("PMD.ConfusingTernary")
 	void all() {
-		var paths = List.of(Path.of("share"));
+		var paths = List.of(Path.of("res"));
 
 		// It should return the path of the `executable.cmd` file on Windows.
 		var executables = which("executable", paths).all();
 		if (!Finder.isWindows) assertTrue(executables.isEmpty());
 		else {
 			assertEquals(1, executables.get().size());
-			assertTrue(executables.get().getFirst().toString().endsWith("\\share\\executable.cmd"));
+			assertTrue(executables.get().getFirst().toString().endsWith("\\res\\executable.cmd"));
 		}
 
 		// It should return the path of the `executable.sh` file on POSIX.
@@ -43,11 +43,11 @@ final class ResultSetTest {
 	@Test
 	@DisplayName("first()")
 	void first() {
-		var paths = List.of(Path.of("share"));
+		var paths = List.of(Path.of("res"));
 
 		// It should return the path of the `executable.cmd` file on Windows.
 		var executable = which("executable", paths).first();
-		if (Finder.isWindows) assertTrue(executable.get().toString().endsWith("\\share\\executable.cmd"));
+		if (Finder.isWindows) assertTrue(executable.get().toString().endsWith("\\res\\executable.cmd"));
 		else assertTrue(executable.isEmpty());
 
 		// It should return the path of the `executable.sh` file on POSIX.
