@@ -49,8 +49,16 @@ jobs:
         with:
           cache: pip
           python-version: 3.12
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.ivy2/cache
+          key: ${{runner.os}}-ivy-${{hashFiles('**/ivy.xml')}}
+          restore-keys: ${{runner.os}}-ivy-
       - name: Install dependencies
-        run: pip install --requirement=etc/requirements.txt
+        run: |
+          ant install
+          pip install --requirement=etc/requirements.txt
       - name: Deploy documentation
         run: |
           ant doc
