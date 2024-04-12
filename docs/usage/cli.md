@@ -1,6 +1,6 @@
 # Command line interface
 Download the latest `cli` JAR file of **Which for Java** from the GitHub releases:  
-https://github.com/cedx/which.java/releases/latest
+[https://github.com/cedx/which.java/releases/latest](https://github.com/cedx/which.java/releases/latest)
 
 Then use it to find the instances of an executable command:
 

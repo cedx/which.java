@@ -64,6 +64,22 @@ class Program {
 ## Options
 The behavior of the `Finder.which(String command, List<Path> paths, List<String> extensions)` method can be customized using the following parameters.
 
+### List&lt;String&gt; **extensions**
+A [`List`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html) of strings specifying the executable file extensions.
+
+On Windows, defaults to the list of extensions provided by the `PATHEXT` environment variable.
+
+```java
+import static io.belin.which.Finder.which;
+import java.util.List;
+
+which("foobar", null, List.of(".foo", ".exe", ".cmd"));
+```
+
+!!! note
+    The `extensions` option is only meaningful on the Windows platform,
+    where the executability of a file is determined from its extension.
+
 ### List&lt;Path&gt; **paths**
 A [`List`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html)
 of [`Path`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html)s specifying the system paths
@@ -78,17 +94,3 @@ import java.util.List;
 
 which("foobar", List.of(Path.of("/usr/local/bin"), Path.of("/usr/bin")));
 ```
-
-### List&lt;String&gt; **extensions**
-A [`List`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html) of strings specifying the executable file extensions.
-
-On Windows, defaults to the list of extensions provided by the `PATHEXT` environment variable.
-
-```java
-import static io.belin.which.Finder.which;
-import java.util.List;
-
-which("foobar", null, List.of(".foo", ".exe", ".cmd"));
-```
-
-> The `extensions` option is only meaningful on the Windows platform, where the executability of a file is determined from its extension.

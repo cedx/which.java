@@ -1,7 +1,10 @@
 /**/.DS_Store
 /.idea/
+/*.iml
 /bin/
+/docs/api/
 /etc/http-client.private.env.json
 /lib/
 /src/picocli/
 /var/
+/www/
