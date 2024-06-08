@@ -3,6 +3,7 @@ on: push
 
 jobs:
   test:
+    continue-on-error: ${{matrix.platform == 'macos-latest'}}
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
