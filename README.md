@@ -4,8 +4,8 @@
 Find the instances of an executable in the system path, in [Java](https://www.oracle.com/java).
 
 ## Documentation
-- [User guide](https://docs.belin.io/which.java)
-- [API reference](https://docs.belin.io/which.java/api)
+- [User guide](https://github.com/cedx/which.java/wiki)
+- [Examples](https://github.com/cedx/which.java/tree/main/example)
 
 ## Development
 - [Git repository](https://github.com/cedx/which.java)
