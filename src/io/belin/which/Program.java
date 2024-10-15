@@ -79,7 +79,7 @@ class Program implements Callable<Integer>, IVersionProvider {
 			}
 		}
 
-		return executables.isEmpty() ? 1 : 0;
+		return executables.isEmpty() ? 404 : 0;
 	}
 
 	/**
