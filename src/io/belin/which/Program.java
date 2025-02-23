@@ -45,7 +45,7 @@ class Program implements Callable<Integer>, IVersionProvider {
 	 */
 	@Option(
 		names = {"-s", "--silent"},
-		description = "Silence the output, just return the exit code (0 if any executable is found, otherwise 1)."
+		description = "Silence the output, just return the exit code (0 if any executable is found, otherwise 404)."
 	)
 	private boolean silent;
 
